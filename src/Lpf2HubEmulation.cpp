@@ -477,7 +477,7 @@ std::string Lpf2HubEmulation::getPortInformationPayload(DeviceType deviceType, b
     switch (informationType)
     {
     case 0x01:
-      payload.append(std::string{0x01, 0x01, 0x00, 0x00, 0x01, 0x00});
+      payload.append("\x01\x01\x00\x00\x01\x00");
       break;
     case 0x02:
       break;
@@ -490,7 +490,7 @@ std::string Lpf2HubEmulation::getPortInformationPayload(DeviceType deviceType, b
     switch (informationType)
     {
     case 0x01:
-      payload.append(std::string{0x01, 0x02, 0x00, 0x00, 0x03, 0x00});
+      payload.append("\x01\x02\x00\x00\x03\x00");
       break;
     case 0x02:
       break;
@@ -518,25 +518,25 @@ std::string Lpf2HubEmulation::getPortModeInformationRequestPayload(DeviceType de
       switch (modeInformationType)
       {
       case 0x00:
-        payload.append(std::string{0x4C, 0x50, 0x46, 0x32, 0x2D, 0x54, 0x52, 0x41, 0x49, 0x4E, 0x00, 0x00});
+        payload.append("\x4C\x50\x46\x32\x2D\x54\x52\x41\x49\x4E\x00\x00");
         break;
       case 0x01:
-        payload.append(std::string{0x00, 0x00, 0xC8, 0xC2, 0x00, 0x00, 0xC8, 0x42});
+        payload.append("\x00\x00\xC8\xC2\x00\x00\xC8\x42");
         break;
       case 0x02:
-        payload.append(std::string{0x00, 0x00, 0xC8, 0xC2, 0x00, 0x00, 0xC8, 0x42});
+        payload.append("\x00\x00\xC8\xC2\x00\x00\xC8\x42");
         break;
       case 0x03:
-        payload.append(std::string{0x00, 0x00, 0xC8, 0xC2, 0x00, 0x00, 0xC8, 0x42});
+        payload.append("\x00\x00\xC8\xC2\x00\x00\xC8\x42");
         break;
       case 0x04:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00});
+        payload.append("\x00\x00\x00\x00\x00");
         break;
       case 0x05:
-        payload.append(std::string{0x00, 0x18});
+        payload.append("\x00\x18");
         break;
       case 0x80:
-        payload.append(std::string{0x01, 0x00, 0x04, 0x00});
+        payload.append("\x01\x00\x04\x00");
         break;
       default:
         break;
@@ -551,25 +551,25 @@ std::string Lpf2HubEmulation::getPortModeInformationRequestPayload(DeviceType de
       switch (modeInformationType)
       {
       case 0x00:
-        payload.append(std::string{0x43, 0x4F, 0x4C, 0x20, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
+        payload.append("\x43\x4F\x4C\x20\x4F\x00\x00\x00\x00\x00\x00\x00");
         break;
       case 0x01:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x41});
+        payload.append("\x00\x00\x00\x00\x00\x00\x20\x41");
         break;
       case 0x02:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC8, 0x42});
+        payload.append("\x00\x00\x00\x00\x00\x00\xC8\x42");
         break;
       case 0x03:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x20, 0x41});
+        payload.append("\x00\x00\x00\x00\x00\x00\x20\x41");
         break;
       case 0x04:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00});
+        payload.append("\x00\x00\x00\x00\x00");
         break;
       case 0x05:
-        payload.append(std::string{0x00, 0x44});
+        payload.append("\x00\x44");
         break;
       case 0x80:
-        payload.append(std::string{0x01, 0x00, 0x01, 0x00});
+        payload.append("\x01\x00\x01\x00");
         break;
       default:
         break;
@@ -580,25 +580,25 @@ std::string Lpf2HubEmulation::getPortModeInformationRequestPayload(DeviceType de
       switch (modeInformationType)
       {
       case 0x00:
-        payload.append(std::string{0x52, 0x47, 0x42, 0x20, 0x4F, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00});
+        payload.append("\x52\x47\x42\x20\x4F\x00\x00\x00\x00\x00\x00\x00");
         break;
       case 0x01:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7F, 0x43});
+        payload.append("\x00\x00\x00\x00\x00\x00\x7F\x43");
         break;
       case 0x02:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xC8, 0x42});
+        payload.append("\x00\x00\x00\x00\x00\x00\xC8\x42");
         break;
       case 0x03:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x7F, 0x43});
+        payload.append("\x00\x00\x00\x00\x00\x00\x7F\x43");
         break;
       case 0x04:
-        payload.append(std::string{0x00, 0x00, 0x00, 0x00, 0x00});
+        payload.append("\x00\x00\x00\x00\x00");
         break;
       case 0x05:
-        payload.append(std::string{0x00, 0x10});
+        payload.append("\x00\x10");
         break;
       case 0x80:
-        payload.append(std::string{0x03, 0x00, 0x03, 0x00});
+        payload.append("\x03\x00\x03\x00");
         break;
       default:
         break;
