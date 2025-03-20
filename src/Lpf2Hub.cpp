@@ -54,12 +54,12 @@ public:
 /**
  * Scan for BLE servers and find the first one that advertises the service we are looking for.
  */
-class Lpf2HubAdvertisedDeviceCallbacks : public NimBLEAdvertisedDeviceCallbacks
+class Lpf2HubScanCallbacks : public NimBLEScanCallbacks
 {
     Lpf2Hub *_lpf2Hub;
 
 public:
-    Lpf2HubAdvertisedDeviceCallbacks(Lpf2Hub *lpf2Hub) : NimBLEAdvertisedDeviceCallbacks()
+    Lpf2HubScanCallbacks(Lpf2Hub *lpf2Hub) : NimBLEScanCallbacks()
     {
         _lpf2Hub = lpf2Hub;
     }
@@ -815,7 +815,7 @@ void Lpf2Hub::init()
     BLEDevice::init("");
     pBLEScan = BLEDevice::getScan();
 
-    pBLEScan->setAdvertisedDeviceCallbacks(new Lpf2HubAdvertisedDeviceCallbacks(this));
+    pBLEScan->setScanCallbacks(new Lpf2HubScanCallbacks(this));
 
     pBLEScan->setActiveScan(true);
     // start method with callback function to enforce the non blocking scan. If no callback function is used,
@@ -829,7 +829,7 @@ void Lpf2Hub::init()
  */
 void Lpf2Hub::init(std::string deviceAddress)
 {
-    _requestedDeviceAddress = new BLEAddress(deviceAddress);
+    _requestedDeviceAddress = new BLEAddress(deviceAddress, BLE_ADDR_PUBLIC);
     init();
 }
 
@@ -850,7 +850,7 @@ void Lpf2Hub::init(uint32_t scanDuration)
  */
 void Lpf2Hub::init(std::string deviceAddress, uint32_t scanDuration)
 {
-    _requestedDeviceAddress = new BLEAddress(deviceAddress);
+    _requestedDeviceAddress = new BLEAddress(deviceAddress, BLE_ADDR_PUBLIC);
     _scanDuration = scanDuration;
     init();
 }
@@ -1086,10 +1086,10 @@ bool Lpf2Hub::connectHub()
     BLEAddress pAddress = *_pServerAddress;
     NimBLEClient *pClient = nullptr;
 
-    log_d("number of ble clients: %d", NimBLEDevice::getClientListSize());
+    log_d("number of ble clients: %d", NimBLEDevice::getCreatedClientCount());
 
     /** Check if we have a client we should reuse first **/
-    if (NimBLEDevice::getClientListSize())
+    if (NimBLEDevice::getCreatedClientCount())
     {
         /** Special case when we already know this device, we send false as the 
          *  second argument in connect() to prevent refreshing the service database.
@@ -1117,9 +1117,9 @@ bool Lpf2Hub::connectHub()
     /** No client to reuse? Create a new one. */
     if (!pClient)
     {
-        if (NimBLEDevice::getClientListSize() >= NIMBLE_MAX_CONNECTIONS)
+        if (NimBLEDevice::getCreatedClientCount() >= NIMBLE_MAX_CONNECTIONS)
         {
-            log_w("max clients reached - no more connections available: %d", NimBLEDevice::getClientListSize());
+            log_w("max clients reached - no more connections available: %d", NimBLEDevice::getCreatedClientCount());
             return false;
         }
 

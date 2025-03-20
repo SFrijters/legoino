@@ -390,7 +390,7 @@ void Lpf2HubEmulation::start()
   log_d("Starting BLE");
 
   NimBLEDevice::init(_hubName);
-  NimBLEDevice::setPower(ESP_PWR_LVL_N0, ESP_BLE_PWR_TYPE_ADV); // 0dB, Advertisment
+  NimBLEDevice::setPower(0, NimBLETxPowerType::Advertise); // 0dB, Advertisment
 
   log_d("Create server");
   _pServer = NimBLEDevice::createServer();
@@ -415,7 +415,7 @@ void Lpf2HubEmulation::start()
   _pAdvertising = NimBLEDevice::getAdvertising();
 
   _pAdvertising->addServiceUUID(LPF2_UUID);
-  _pAdvertising->setScanResponse(true);
+  _pAdvertising->enableScanResponse(true);
   _pAdvertising->setMinInterval(32);//0.625ms units -> 20ms
   _pAdvertising->setMaxInterval(64);//0.625ms units -> 40ms
 
@@ -448,9 +448,11 @@ void Lpf2HubEmulation::start()
   // set the advertisment flags to 0x06
   scanResponseData.setFlags(BLE_HS_ADV_F_DISC_GEN);
   // set the power level to 0dB
-  scanResponseData.addData(std::string{0x02, 0x0A, 0x00});
+  const uint8_t powerLevel[3] = {0x02, 0x0A, 0x00};
+  scanResponseData.addData(powerLevel, sizeof(powerLevel));
   // set the slave connection interval range to 20-40ms
-  scanResponseData.addData(std::string{0x05, 0x12, 0x10, 0x00, 0x20, 0x00});
+  const uint8_t slaveConnectionIntervalRange[6] = {0x05, 0x12, 0x10, 0x00, 0x20, 0x00};
+  scanResponseData.addData(slaveConnectionIntervalRange, sizeof(slaveConnectionIntervalRange));
 
   log_d("advertisment data payload(%d): %s", advertisementData.getPayload().length(), advertisementData.getPayload().c_str());
   log_d("scan response data payload(%d): %s", scanResponseData.getPayload().length(), scanResponseData.getPayload().c_str());
