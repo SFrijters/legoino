@@ -1,7 +1,4 @@
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/legoinochat?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![GitHub release (latest SemVer)](https://img.shields.io/github/v/release/corneliusmunz/legoino)](https://github.com/corneliusmunz/legoino/releases/latest/)
-[![arduino-library-badge](https://www.ardu-badge.com/badge/Legoino.svg?)](https://www.ardu-badge.com/Legoino)
-![BuildExampleSketches](https://github.com/corneliusmunz/legoino/workflows/BuildExampleSketches/badge.svg?branch=master)
+[![BuildExampleSketches](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml/badge.svg)](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml)
 
 # Legoino
 
@@ -284,8 +281,8 @@ Serial.println(portForDevice, DEC);
 // check for expected port number where the device should be connected
 if (portForDevice == 1)
 {
-	Serial.println("activatePortDevice");
-	myHub.activatePortDevice(portB, colorDistanceSensorCallback);
+    Serial.println("activatePortDevice");
+    myHub.activatePortDevice(portB, colorDistanceSensorCallback);
 }
 ```
 
