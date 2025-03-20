@@ -20,12 +20,12 @@ public:
   static byte MapSpeed(int speed);
   static byte *Int16ToByteArray(int16_t x);
   static byte *Int32ToByteArray(int32_t x);
-  static unsigned char ReadUInt8(uint8_t *data, int offset);
-  static signed char ReadInt8(uint8_t *data, int offset);
-  static unsigned short ReadUInt16LE(uint8_t *data, int offset);
-  static signed short ReadInt16LE(uint8_t *data, int offset);
-  static unsigned int ReadUInt32LE(uint8_t *data, int offset);
-  static signed int ReadInt32LE(uint8_t *data, int offset);
+  static uint8_t ReadUInt8(uint8_t *data, int offset);
+  static int8_t ReadInt8(uint8_t *data, int offset);
+  static uint16_t ReadUInt16LE(uint8_t *data, int offset);
+  static int16_t ReadInt16LE(uint8_t *data, int offset);
+  static uint32_t ReadUInt32LE(uint8_t *data, int offset);
+  static int32_t ReadInt32LE(uint8_t *data, int offset);
   static std::string ColorStringFromColor(Color color);
   static std::string ColorStringFromColor(int color);
 };
