@@ -138,6 +138,7 @@ public:
 private:
   // Notification callbacks
   HubPropertyChangeCallback _hubPropertyChangeCallback = nullptr;
+  NimBLEScanCallbacks *_scanCallbacks = nullptr;
 
   // List of connected devices
   Device connectedDevices[13];
