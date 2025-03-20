@@ -1,10 +1,10 @@
 /**
  * A Legoino example to control a control plus hub
  * with a Motor connected on Port B using absolute positioning
- * 
+ *
  * (c) Copyright 2020 - Carl Alldis
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"
@@ -18,15 +18,15 @@ bool isCalibrated;
 void setup() {
     Serial.begin(115200);
     isCalibrated = false;
-} 
+}
 
 
 // main loop
 void loop() {
 
-  if (!myHub.isConnected() && !myHub.isConnecting()) 
+  if (!myHub.isConnected() && !myHub.isConnecting())
   {
-    myHub.init(); 
+    myHub.init();
   }
 
   // connect flow. Search for BLE services and try to connect if the uuid of the hub is found
@@ -59,7 +59,7 @@ void loop() {
       isCalibrated = true;
     }
 
-    // Cycle between the min/max steering points, then back to center 
+    // Cycle between the min/max steering points, then back to center
     myHub.setLedColor(GREEN);
     myHub.setAbsoluteMotorPosition(portB, 100, -90);
     delay(1000);
@@ -76,5 +76,5 @@ void loop() {
   } else {
     Serial.println("ControlPlus hub is disconnected");
   }
-  
+
 } // End of loop

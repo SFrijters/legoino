@@ -1,22 +1,22 @@
 /**
  * A Legoino example to connect to a Powered Up remote and a move hub to control the Vernie model
- * 
+ *
  * ATTENTION: The connection order is relevant!
  * 1) Power up the move Hub
  * 2) Power up the ESP32
  * 3) Power up the PoweredUp remote control
- * 
+ *
  * Just rotate the right remote stick that the buttons are aligned horizontally (+ button to the right)
- * 
+ *
  * Left Button UP     -> Vernie will move one step forward
  * Left Button DOWN   -> Vernie will move one step back
  * Right Button UP    -> Vernie will rotate to the right
  * Right Button DOWN  -> Vernie will rotate to the left
  * Right Stop Button  -> Vernie will fire the arrow
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

@@ -2,10 +2,10 @@
  * A MoveHub basic example to connect a boost hub and try to get the
  * hub device infos like battery level, Rssi and firmware version. Additionally the read out
  * of the hub button with a callback is shown.
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

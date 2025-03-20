@@ -1,10 +1,10 @@
 /**
  * A Legoino example to control a train which has a motor connected
  * to the Port A of the Hub
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"
@@ -15,13 +15,13 @@ byte port = (byte)PoweredUpHubPort::A;
 
 void setup() {
     Serial.begin(115200);
-} 
+}
 
 
 // main loop
 void loop() {
 
-  if (!myTrainHub.isConnected() && !myTrainHub.isConnecting()) 
+  if (!myTrainHub.isConnected() && !myTrainHub.isConnecting())
   {
     myTrainHub.init(); // initalize the PoweredUpHub instance
     //myTrainHub.init("90:84:2b:03:19:7f"); //example of initializing an hub with a specific address
@@ -46,7 +46,7 @@ void loop() {
 
     char hubName[] = "myTrainHub";
     myTrainHub.setHubName(hubName);
-  
+
     myTrainHub.setLedColor(GREEN);
     delay(1000);
     myTrainHub.setLedColor(RED);
@@ -63,5 +63,5 @@ void loop() {
   } else {
     Serial.println("Train hub is disconnected");
   }
-  
+
 } // End of loop

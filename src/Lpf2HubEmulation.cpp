@@ -1,15 +1,15 @@
 /*
  * Lpf2HubEmulation.cpp - Arduino base class for emulating a hub.
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
- * 
+ *
  * Initial issue/idea by https://github.com/AlbanT
  * Initial implementation idea by https://github.com/marcrupprath
  * Initial implementation with controlling LEDs and outputs by https://github.com/GianCann
  * Many thanks for contributing to that solution!!
- * 
+ *
  * Released under MIT License
- * 
+ *
 */
 
 #if defined(ESP32)

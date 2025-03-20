@@ -1,9 +1,9 @@
 /*
  * Lpf2HubConst.h - definition of enum types and constants
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
 */
 
 #ifndef Lpf2HubConst_h

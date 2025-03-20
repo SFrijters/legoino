@@ -1,10 +1,10 @@
 /**
  * A Legoino example for connecting multiple hubs at the same time
  * Two train hubs and to train remotes are connected
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

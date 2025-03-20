@@ -1,14 +1,14 @@
 /**
- * A Legoino example to connect to a Powered Up remote and a train hub. 
- * 
+ * A Legoino example to connect to a Powered Up remote and a train hub.
+ *
  * 1) Power up the ESP32
  * 2) Power up the Remote and the Train Hub in any order
- * 
+ *
  * You can change the motor speed with the left (A) remote buttons
- * 
+ *
  * (c) Copyright 2020 - Nicolas HILAIRE
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

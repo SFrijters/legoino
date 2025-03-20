@@ -1,13 +1,13 @@
 /**
- * A hub basic example to connect a hub, set the led color of the hub 
+ * A hub basic example to connect a hub, set the led color of the hub
  * dependent on the detected rotation of the connected tacho motor. Usage of callback function
- * if motor angle is changed. The tacho motor can be attached to any port and the 
+ * if motor angle is changed. The tacho motor can be attached to any port and the
  * sketch will wait until the tacho motor is attached. If the hub button is pressed,
  * the encode position will be set to 0
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

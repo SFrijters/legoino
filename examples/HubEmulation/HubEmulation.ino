@@ -1,20 +1,20 @@
 /**
  * A Legoino example to emulate a train hub which directly sends
- * out the motor commands as IR signals to a power function IR receiver. 
+ * out the motor commands as IR signals to a power function IR receiver.
  * With this setup you can upgrade your power function systems to powerup systems
- * 
- * For the setup the IR LED has to be connected on the OUTPUT PIN 12 of the 
+ *
+ * For the setup the IR LED has to be connected on the OUTPUT PIN 12 of the
  * ESP controller. This will work out of the Box with the M5 Atom matrix/light
  * esp32 board which has a build in IR LED on Port 12
- * 
+ *
  * Port A of the powered up hub is mapped to the RED power function port
  * Port B of the powered up hub is mapped to the BLUE power function port
- * 
+ *
  * Example video: https://www.youtube.com/watch?v=RTNexxT4-yQ&t=16s
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2HubEmulation.h"
@@ -36,7 +36,7 @@ void writeValueCallback(byte port, byte value)
 
   if (port == 0x00)
   {
-    pf.single_pwm(PowerFunctionsPort::RED, pf.speedToPwm(value));    
+    pf.single_pwm(PowerFunctionsPort::RED, pf.speedToPwm(value));
   }
 
   if (port == 0x01)
@@ -55,7 +55,7 @@ void setup()
 {
   Serial.begin(115200);
   // define the callback function if a write message event on the characteristic occurs
-  myEmulatedHub.setWritePortCallback(&writeValueCallback); 
+  myEmulatedHub.setWritePortCallback(&writeValueCallback);
   myEmulatedHub.start();
 }
 
@@ -63,7 +63,7 @@ void setup()
 void loop()
 {
 
-  // if an app is connected, attach some devices on the ports to signalize 
+  // if an app is connected, attach some devices on the ports to signalize
   // the app that values could be received/written to that ports
   if (myEmulatedHub.isConnected && !myEmulatedHub.isPortInitialized)
   {

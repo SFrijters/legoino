@@ -1,10 +1,10 @@
 /**
  * A Boost basic example to connect a boost hub, set the led color and the name of the hub and
  * do some basic movements on the boost map grid
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Boost.h"

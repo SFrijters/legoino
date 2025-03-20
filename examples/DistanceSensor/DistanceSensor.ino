@@ -1,12 +1,12 @@
 /**
- * A hub basic example to connect a  hub, set the led color of the hub 
+ * A hub basic example to connect a  hub, set the led color of the hub
  * dependent on the detected distance of the distance/color sensor. The sensor
  * can be connect to any port. The sketch will wait till a color-distance sensor
  * will be attached on any port.
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

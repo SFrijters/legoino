@@ -1,6 +1,6 @@
 # Migration from 0.x.x to 1.0.0
 
-Due to changes in the structure of the code, the existent sketches of former libraries (< version 1.0.0) have to be migrated. 
+Due to changes in the structure of the code, the existent sketches of former libraries (< version 1.0.0) have to be migrated.
 
 ## Renaming
 
@@ -12,9 +12,9 @@ To get a more consistent naming, some classes and functions have been renamed
 | ------------- |-------------|
 | BoostHub        | Boost |
 
-All classes for different Hub types (like ControlPlusHub, PoweredUpHub, BoostHub, ...) were removed and all Hub Types can be controlled via the Base Lpf2Hub class. On exeption is the Boost.cpp which contains some "higher" level commands specific to boost models. But that is more a model class than a base hub or device class. 
+All classes for different Hub types (like ControlPlusHub, PoweredUpHub, BoostHub, ...) were removed and all Hub Types can be controlled via the Base Lpf2Hub class. On exeption is the Boost.cpp which contains some "higher" level commands specific to boost models. But that is more a model class than a base hub or device class.
 
-The main difference between the hub types was formerly the assignment of port numbers. This is now covered in the following enums 
+The main difference between the hub types was formerly the assignment of port numbers. This is now covered in the following enums
 * `ControlPlusHubPort`
 * `DuploTrainHubPort`
 * `MoveHubPort`
@@ -134,7 +134,7 @@ This function will be called if an value update appears and you can react on the
 
 ### Activate notifications
 
-To get calls to your callback functions you have to register or activate it for the properties you want to get informed about updates. This has to be done after the hub is connected (not before). If you want to register updates for several properties/sensors, just add a short delay (50-100ms) after each register/activate call. 
+To get calls to your callback functions you have to register or activate it for the properties you want to get informed about updates. This has to be done after the hub is connected (not before). If you want to register updates for several properties/sensors, just add a short delay (50-100ms) after each register/activate call.
 
 For Port related updates you have to use the function
 ```c++
@@ -168,7 +168,7 @@ Serial.print("check ports... if needed sensor is already connected: ");
 byte portForDevice = myHub.getPortForDeviceType((byte)DeviceType::COLOR_DISTANCE_SENSOR);
 Serial.println(portForDevice, DEC);
 // check for expected port number where the device should be connected
-if (portForDevice == 1)  
+if (portForDevice == 1)
 {
 	Serial.println("activatePortDevice");
 	myHub.activatePortDevice(portB, colorDistanceSensorCallback);

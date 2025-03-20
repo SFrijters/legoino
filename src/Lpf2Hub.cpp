@@ -1,17 +1,17 @@
 /*
  * Lpf2Hub.cpp - Arduino base class for controlling Powered UP and Boost controllers
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
 */
 
 #if defined(ESP32)
 
 #include "Lpf2Hub.h"
 
-/** 
- * Callback if a scan has ended with the results of found devices 
+/**
+ * Callback if a scan has ended with the results of found devices
  * only needed to enforce the non blocking scan start
  */
 void scanEndedCallback(NimBLEScanResults results)
@@ -25,7 +25,7 @@ void scanEndedCallback(NimBLEScanResults results)
 
 /**
  * Derived class which could be added as an instance to the BLEClient for callback handling
- * The current hub is given as a parameter in the constructor to be able to set the 
+ * The current hub is given as a parameter in the constructor to be able to set the
  * status flags on a disconnect event accordingly
  */
 class Lpf2HubClientCallbacks : public BLEClientCallbacks
@@ -140,7 +140,7 @@ void Lpf2Hub::WriteValue(byte command[], int size)
  * @brief Register a device on a defined port. This will store the device
  * in the connectedDevices array. This method will be called if a port connection
  * event is triggered by the hub
- * 
+ *
  * @param [in] port number where the device is connected
  * @param [in] device type of the connected device
  */
@@ -155,7 +155,7 @@ void Lpf2Hub::registerPortDevice(byte portNumber, byte deviceType)
 /**
  * @brief Remove a device from the connectedDevices array. This method
  * will be called if a port disconnection event is triggered by the hub
- * 
+ *
  * @param [in] port number where the device is connected
  */
 void Lpf2Hub::deregisterPortDevice(byte portNumber)
@@ -183,8 +183,8 @@ void Lpf2Hub::deregisterPortDevice(byte portNumber)
 /**
  * @brief Activate device for receiving updates. E.g. activate a color/distance sensor to
  * write updates on the characteristic if a value has changed. An optional callback could be
- * regeistered here. This function will be called if the update event will occur. 
- * 
+ * regeistered here. This function will be called if the update event will occur.
+ *
  * @param [in] port number where the device is connected
  * @param [in] callback function which will be called on an update event
  */
@@ -197,9 +197,9 @@ void Lpf2Hub::activatePortDevice(byte portNumber, PortValueChangeCallback portVa
 /**
  * @brief Activate device for receiving updates. E.g. activate a color/distance sensor to
  * write updates on the characteristic if a value has changed. An optional callback could be
- * regeistered here. This function will be called if the update event will occur. The Update mode 
+ * regeistered here. This function will be called if the update event will occur. The Update mode
  * is currently fixed based on the device type
- * 
+ *
  * @param [in] port number where the device is connected
  * @param [in] deviceType of the connected port
  * @param [in] callback function which will be called on an update event
@@ -219,8 +219,8 @@ void Lpf2Hub::activatePortDevice(byte portNumber, byte deviceType, PortValueChan
 }
 
 /**
- * @brief Deactivate device for receiving updates. 
- * 
+ * @brief Deactivate device for receiving updates.
+ *
  * @param [in] port number where the device is connected
  */
 void Lpf2Hub::deactivatePortDevice(byte portNumber)
@@ -230,10 +230,10 @@ void Lpf2Hub::deactivatePortDevice(byte portNumber)
 }
 
 /**
- * @brief Deactivate device for receiving updates. 
- * 
+ * @brief Deactivate device for receiving updates.
+ *
  * @param [in] port number where the device is connected
- * @param [in] device type 
+ * @param [in] device type
  */
 void Lpf2Hub::deactivatePortDevice(byte portNumber, byte deviceType)
 {
@@ -319,7 +319,7 @@ void Lpf2Hub::parsePortMessage(uint8_t *pData)
 }
 
 /**
- * @brief Parse Mario pant sensor 
+ * @brief Parse Mario pant sensor
  * @param [in] pData The pointer to the received data
  * @return Pant type
  */
@@ -331,7 +331,7 @@ MarioPant Lpf2Hub::parseMarioPant(uint8_t *pData)
 }
 
 /**
- * @brief Parse Mario gesture sensor 
+ * @brief Parse Mario gesture sensor
  * @param [in] pData The pointer to the received data
  * @return Gesture
  */
@@ -343,7 +343,7 @@ MarioGesture Lpf2Hub::parseMarioGesture(uint8_t *pData)
 }
 
 /**
- * @brief Parse Mario barcode  sensor 
+ * @brief Parse Mario barcode  sensor
  * @param [in] pData The pointer to the received data
  * @return MarioBarcode
  */
@@ -355,7 +355,7 @@ MarioBarcode Lpf2Hub::parseMarioBarcode(uint8_t *pData)
 }
 
 /**
- * @brief Parse Mario color sensor 
+ * @brief Parse Mario color sensor
  * @param [in] pData The pointer to the received data
  * @return MarioColor
  */
@@ -666,7 +666,7 @@ byte Lpf2Hub::getModeForDeviceType(byte deviceType)
 }
 
 /**
- * @brief Parse the incoming characteristic notification for a Sensor Message if a callback 
+ * @brief Parse the incoming characteristic notification for a Sensor Message if a callback
  * is registered, the callback of that connected device is called with the received data
  * @param [in] pData The pointer to the received data
  */
@@ -771,7 +771,7 @@ void Lpf2Hub::parsePortAction(uint8_t *pData)
  * @param [in] pBLERemoteCharacteristic The pointer to the characteristic
  * @param [in] pData The pointer to the received data
  * @param [in] length The length of the data array
- * @param [in] isNotify 
+ * @param [in] isNotify
  */
 void Lpf2Hub::notifyCallback(
     NimBLERemoteCharacteristic *pBLERemoteCharacteristic,
@@ -960,10 +960,10 @@ void Lpf2Hub::setLedColor(Color color)
 }
 
 /**
- * @brief Set the color of the HUB LED with RGB values 
- * @param [in] red 0..255 
- * @param [in] green 0..255 
- * @param [in] blue 0..255 
+ * @brief Set the color of the HUB LED with RGB values
+ * @param [in] red 0..255
+ * @param [in] green 0..255
+ * @param [in] blue 0..255
  */
 void Lpf2Hub::setLedRGBColor(char red, char green, char blue)
 {
@@ -975,9 +975,9 @@ void Lpf2Hub::setLedRGBColor(char red, char green, char blue)
 }
 
 /**
- * @brief Set the color of the HUB LED with HSV values 
- * @param [in] hue 0..360 
- * @param [in] saturation 0..1 
+ * @brief Set the color of the HUB LED with HSV values
+ * @param [in] hue 0..360
+ * @param [in] saturation 0..1
  * @param [in] value 0..1
  */
 void Lpf2Hub::setLedHSVColor(int hue, double saturation, double value)
@@ -1109,7 +1109,7 @@ bool Lpf2Hub::connectHub()
     /** Check if we have a client we should reuse first **/
     if (NimBLEDevice::getCreatedClientCount())
     {
-        /** Special case when we already know this device, we send false as the 
+        /** Special case when we already know this device, we send false as the
          *  second argument in connect() to prevent refreshing the service database.
          *  This saves considerable time and power.
          */
@@ -1210,7 +1210,7 @@ bool Lpf2Hub::isScanning() {
 
 /**
  * @brief Retrieve the hub type
- * @return hub type 
+ * @return hub type
  */
 HubType Lpf2Hub::getHubType()
 {
@@ -1219,7 +1219,7 @@ HubType Lpf2Hub::getHubType()
 
 /**
  * @brief Retrieve the hub name
- * @return hub name 
+ * @return hub name
  */
 std::string Lpf2Hub::getHubName()
 {
@@ -1227,7 +1227,7 @@ std::string Lpf2Hub::getHubName()
 }
 
 /**
- * @brief Set the motor speed on a defined port. 
+ * @brief Set the motor speed on a defined port.
  * @param [in] port Port of the Hub on which the speed of the motor will set (A, B)
  * @param [in] speed Speed of the Motor -100..0..100 negative values will reverse the rotation
  */
@@ -1247,7 +1247,7 @@ void Lpf2Hub::stopBasicMotor(byte port)
 }
 
 /**
- * @brief Set the motor speed on a defined port. 
+ * @brief Set the motor speed on a defined port.
  * @param [in] port Port of the Hub on which the speed of the motor will set (A, B, AB)
  * @param [in] speed Speed of the Motor -100..0..100 negative values will reverse the rotation
  */
@@ -1268,7 +1268,7 @@ void Lpf2Hub::stopTachoMotor(byte port)
 }
 
 /**
- * @brief Set the acceleration profile 
+ * @brief Set the acceleration profile
  * @param [in] port Port of the Hub on which the speed of the motor will set (A, B, AB)
  * @param [in] time Time value in ms of the acceleration from 0-100% speed/Power
  */
@@ -1280,7 +1280,7 @@ void Lpf2Hub::setAccelerationProfile(byte port, int16_t time)
 }
 
 /**
- * @brief Set the deceleration profile 
+ * @brief Set the deceleration profile
  * @param [in] port Port of the Hub on which the speed of the motor will set (A, B, AB)
  * @param [in] time Time value in ms of the deceleration from 100-0% speed/Power
  */
@@ -1292,7 +1292,7 @@ void Lpf2Hub::setDecelerationProfile(byte port, int16_t time)
 }
 
 /**
- * @brief Set the motor speed on a defined port. 
+ * @brief Set the motor speed on a defined port.
  * @param [in] port Port of the Hub on which the speed of the motor will set
  * @param [in] speed Speed of the Motor -100..0..100 negative values will reverse the rotation
  * @param [in] time Time in miliseconds for running the motor on the desired speed
@@ -1308,7 +1308,7 @@ void Lpf2Hub::setTachoMotorSpeedForTime(byte port, int speed, int16_t time = 0, 
 }
 
 /**
- * @brief Set the motor speed on a defined port. 
+ * @brief Set the motor speed on a defined port.
  * @param [in] port Port of the Hub on which the speed of the motor will set (A, B, AB)
  * @param [in] speed Speed of the Motor -100..0..100 negative values will reverse the rotation
  * @param [in] time Time in miliseconds for running the motor on the desired speed
@@ -1396,7 +1396,7 @@ void Lpf2Hub::playTone(byte number)
 }
 
 /**
- * @brief Set volume of Mario Hub 
+ * @brief Set volume of Mario Hub
  * @param [in] volume value in % 0..100
  */
 void Lpf2Hub::setMarioVolume(byte volume)

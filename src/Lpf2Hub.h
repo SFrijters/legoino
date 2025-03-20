@@ -1,9 +1,9 @@
 /*
  * Lpf2Hub.h - Arduino base class for controlling Powered UP and Boost controllers
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
 */
 
 #if defined(ESP32)

@@ -282,7 +282,7 @@ Serial.print("check ports... if needed sensor is already connected: ");
 byte portForDevice = myHub.getPortForDeviceType((byte)DeviceType::COLOR_DISTANCE_SENSOR);
 Serial.println(portForDevice, DEC);
 // check for expected port number where the device should be connected
-if (portForDevice == 1)  
+if (portForDevice == 1)
 {
 	Serial.println("activatePortDevice");
 	myHub.activatePortDevice(portB, colorDistanceSensorCallback);

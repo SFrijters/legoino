@@ -49,8 +49,8 @@ std::string LegoinoCommon::ColorStringFromColor(int color)
 {
     if (color > Color::NUM_COLORS) {
         return std::string(COLOR_STRING[Color::NUM_COLORS]);
-    } 
-    else 
+    }
+    else
     {
         return std::string(COLOR_STRING[color]);
     }

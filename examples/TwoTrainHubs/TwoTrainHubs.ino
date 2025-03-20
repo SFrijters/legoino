@@ -1,15 +1,15 @@
 /**
- * A Legoino example to connect two train hubs and one powered up remote. 
- * 
+ * A Legoino example to connect two train hubs and one powered up remote.
+ *
  * 1) Power up the ESP32
  * 2) Power up the Remote and the Train Hubs in any order
- * 
+ *
  * You can change the motor speed of train 1 with the left (A) remote buttons
  * You can change the motor speed of train 2 with the right (B) remote buttons
- * 
+ *
  * (c) Copyright 2020
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"

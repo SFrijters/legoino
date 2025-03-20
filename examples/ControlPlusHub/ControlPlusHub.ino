@@ -1,10 +1,10 @@
 /**
  * A Legoino example to control a control plus hub
  * with a Motor connected on Port D
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"
@@ -15,15 +15,15 @@ byte portD = (byte)ControlPlusHubPort::D;
 
 void setup() {
     Serial.begin(115200);
-} 
+}
 
 
 // main loop
 void loop() {
 
-  if (!myHub.isConnected() && !myHub.isConnecting()) 
+  if (!myHub.isConnected() && !myHub.isConnecting())
   {
-    myHub.init(); 
+    myHub.init();
   }
 
   // connect flow. Search for BLE services and try to connect if the uuid of the hub is found
@@ -41,7 +41,7 @@ void loop() {
 
     char hubName[] = "myControlPlusHub";
     myHub.setHubName(hubName);
-  
+
     myHub.setLedColor(GREEN);
     delay(1000);
     myHub.setLedColor(RED);
@@ -58,5 +58,5 @@ void loop() {
   } else {
     Serial.println("ControlPlus hub is disconnected");
   }
-  
+
 } // End of loop

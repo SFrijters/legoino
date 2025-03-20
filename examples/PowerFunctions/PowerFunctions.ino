@@ -2,10 +2,10 @@
  * A Legoino example to control a power functions (IR)
  * motor or LED on the blue and red port on channel 0 of the
  * IR receiver
- * 
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "PowerFunctions.h"

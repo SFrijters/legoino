@@ -16,7 +16,7 @@
 /**
  * @brief Convert speed value to the supported PWM ranges
  * @param [in] speed value -100..100 which should be converted to a PWM value
- * @return pwm value 
+ * @return pwm value
  */
 PowerFunctionsPwm PowerFunctions::speedToPwm(byte speed)
 {

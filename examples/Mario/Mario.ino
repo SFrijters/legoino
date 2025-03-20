@@ -1,11 +1,11 @@
 /**
- * 
- * A basic example which will connect to a Mario hub and request updates for 
- * the Pant, Color/Barcode and Gesture sensor. 
- *  
+ *
+ * A basic example which will connect to a Mario hub and request updates for
+ * the Pant, Color/Barcode and Gesture sensor.
+ *
  * (c) Copyright 2020 - Cornelius Munz
  * Released under MIT License
- * 
+ *
  */
 
 #include "Lpf2Hub.h"
