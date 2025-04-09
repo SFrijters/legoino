@@ -9,6 +9,10 @@
 
 It is also possible to use the "old" Power Function IR Modules and control them via an IR LED connected to a PIN of your ESP32 device. With the Hub emulation function you can even control an "old" Power Function Light or Motor with the Powered Up app.
 
+## About this fork
+
+This repository is forked from https://github.com/corneliusmunz/legoino, primarily to add support for [NimBLE-Arduino](https://github.com/h2zero/NimBLE-Arduino) version 2.x . It also fixes some build errors for `esp32:esp32:XIAO_ESP32C3` and adds Nix support to the examples via https://github.com/bouk/arduino-nix .
+
 
 ## Arduino Hardware and dependent libraries
 
