@@ -1,0 +1,69 @@
+name: "nix flake check"
+on:
+  pull_request:
+    paths-ignore:
+      - 'README.md'
+  push:
+    paths-ignore:
+      - 'README.md'
+
+jobs:
+  nix-flake-check:
+    strategy:
+      matrix:
+        os: [ ubuntu-latest, macos-latest ]
+      fail-fast: false
+    runs-on: ${{matrix.os}}
+    steps:
+    - uses: actions/checkout@v4
+    - uses: cachix/install-nix-action@v31
+      with:
+        github_access_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: AppArmor fixes
+      # Work around https://github.com/containers/bubblewrap/issues/632
+      # Inspiration from https://github.com/chainguard-dev/melange/issues/1508#issue-2536640978
+      run: |
+        if [ ${{ matrix.os }} != ubuntu-latest ]; then
+          exit 0
+        fi
+
+        # Get the path to arduino-cli wrapper script that the devshell uses
+        arduino_cli_wrapped_path="$(nix develop ./examples --command which arduino-cli)"
+        arduino_cli_path="$(tail -n1 "${arduino_cli_wrapped_path}" | cut -d '"' -f 2)"
+
+        # Get the path to the bwrap executable that the arduino-cli wrapper uses by grepping for the command inside the wrapper script
+        bwrap_path="$(grep "/bwrap" "${arduino_cli_path}")"
+
+        # Write an AppArmor config file that gives 'unconfined' permissions to the bwrap executable
+        cat << EOF | sudo tee /etc/apparmor.d/local-bwrap
+        abi <abi/4.0>,
+        include <tunables/global>
+
+        profile local-bwrap ${bwrap_path} flags=(unconfined) {
+          userns,
+
+          # Site-specific additions and overrides. See local/README for details.
+          include if exists <local/bwrap>
+        }
+        EOF
+        # Reload the AppArmor config
+        sudo systemctl reload apparmor
+
+    - name: Flake metadata
+      run: |
+        nix flake metadata ./examples
+        nix flake show ./examples
+
+    - name: Compile example codes
+      run: |
+        while IFS= read -r -d '' example; do
+          if [ "${example}" != ./examples/package-index ]; then
+            nix develop ./examples --command make VERBOSE= _ARDUINO_BUILD_PATH=/tmp/arduino compile _ARDUINO_OUTPUT_DIR=/tmp/arduino -C "${example}"
+          fi
+        done < <(find ./examples -maxdepth 1 -mindepth 1 -type d -print0 | sort -z)
+
+    - name: Formatter check
+      run: |
+        pushd ./examples && nix fmt && popd
+        git diff --exit-code
