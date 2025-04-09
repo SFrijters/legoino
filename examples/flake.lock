@@ -1,0 +1,42 @@
+{
+  "nodes": {
+    "arduino-nix": {
+      "locked": {
+        "lastModified": 1735332078,
+        "narHash": "sha256-PGZVUTg8BQKL1QgTr3Fcia8RBYYqsbHbx9lIunqdmxQ=",
+        "owner": "bouk",
+        "repo": "arduino-nix",
+        "rev": "dd6c6f4de7d8d8bb460508de911c120dfc35b709",
+        "type": "github"
+      },
+      "original": {
+        "owner": "bouk",
+        "repo": "arduino-nix",
+        "type": "github"
+      }
+    },
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1742506395,
+        "narHash": "sha256-y8Vzt+tPMlg7PWEPDa9HgtHN5d5kG+s3bbDYYDmNHjI=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "3d189af7dbc417385b80c7dd893070c7dde99147",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "arduino-nix": "arduino-nix",
+        "nixpkgs": "nixpkgs"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

@@ -17,12 +17,10 @@ void setup() {
     Serial.begin(115200);
 }
 
-
 // main loop
 void loop() {
 
-  if (!myTrainHub.isConnected() && !myTrainHub.isConnecting())
-  {
+  if (!myTrainHub.isConnected() && !myTrainHub.isConnecting()) {
     myTrainHub.init(); // initalize the PoweredUpHub instance
     //myTrainHub.init("90:84:2b:03:19:7f"); //example of initializing an hub with a specific address
   }
@@ -62,6 +60,7 @@ void loop() {
 
   } else {
     Serial.println("Train hub is disconnected");
+    delay(1000);
   }
 
 } // End of loop
