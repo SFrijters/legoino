@@ -1,4 +1,5 @@
 [![BuildExampleSketches](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml/badge.svg)](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml)
+[![Build via Nix](https://github.com/SFrijters/legoino/actions/workflows/nix-flake-check.yml/badge.svg)](https://github.com/SFrijters/legoino/actions/workflows/nix-flake-check.yml)
 
 # Legoino
 
