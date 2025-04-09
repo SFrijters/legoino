@@ -115,7 +115,7 @@
 
           # The variables starting with underscores are custom and not used by arduino-cli directly
           # The _ARDUINO_PROJECT_DIR variable is passed to arduino-cli via the Makefile.
-          arduinoShellHookPaths = ''
+          shellHook = ''
             if [ -z "''${_ARDUINO_PROJECT_DIR:-}" ]; then
               if [ -n "''${_ARDUINO_ROOT_DIR:-}" ]; then
                 export _ARDUINO_PROJECT_DIR="''${_ARDUINO_ROOT_DIR}/${name}"
