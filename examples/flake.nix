@@ -77,16 +77,7 @@
           gnumake-wrapper = pkgs.writeShellApplication {
             name = "make";
             text = ''
-              if [ "''${1:-}" = -C ]; then
-                shift
-                dir="''${1}"
-                shift
-                pushd "''${dir}"
-              fi
               ${lib.getExe pkgs.gnumake} _ARDUINO_ROOT_DIR="''${_ARDUINO_ROOT_DIR:-/tmp/arduino}" --file=${./Makefile} "$@"
-              if [ -n "''${dir:-}" ]; then
-                popd
-              fi
             '';
           };
 
