@@ -538,4 +538,4 @@ void restorePCharacteristic() {
 }
 ```
 
-(link to example with full code, no GPIO, just prints the commands it gets to serial monitor)[https://github.com/Paradox-Evil-EXE/legoino_1.2.0_experiments/blob/master/examples/ESP-32_Emulated_Hub%20(Control%20Plus)/ESP-32_Emulated_Hub%20(Control%20Plus).ino]
+[link to example with full code, no GPIO, just prints the commands it gets to serial monitor](https://github.com/Paradox-Evil-EXE/legoino_1.2.0_experiments/blob/master/examples/ESP-32_Emulated_Hub%20(Control%20Plus)/ESP-32_Emulated_Hub%20(Control%20Plus).ino)
