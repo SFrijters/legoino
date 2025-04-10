@@ -72,6 +72,7 @@ You can find different examples in the "examples" folder. You can select the exa
 * **PoweredUpRemoteAutoDetection.ino:** Example of connection of PoweredUp and PoweredUpRemote where the device type is fetched automatically and the order in which you switched on the hubs is no longer relevant.
 * **ControlPlusHub.ino:** Example with connection of ControlPlusHub (TechnicHub) where a Tacho Motor on Port D is controlled.
 * **Mario.ino** Example of connection to a Mario Hub to read in sensor notifications about the Barcode/Tag sensor, Color sensor, Pants sensor and Gesture sensor.
+* **ESP32EmulatedHubControlPlus.ino** Example of an emulated Control+ Hub.
 
 
 # Setup and Usage
@@ -452,6 +453,14 @@ You can do this via the standard "sensor notification" procedure. Just have a lo
 
 There is an undocumented hub property `0x12` to control the volume of the hub. This feature can be used with the Legoino function `setMarioVolume(volume)` with a volume value from 0..100 in %.
 
+# Control+ Hub
+
+If you call `.start()` on your emulated lego hub, it does not break your `pCharacteristic`, so you can still control the hub without restarting the whole BLE device.
+
+[Link to example with full code, no GPIO, just prints the commands it gets to serial monitor](examples/ESP32EmulatedHubControlPlus/ESP32EmulatedHubControlPlus.ino)
+
+It needs 1 GPIO device, [which is a button connected to GND and pin 26 (D26)](https://github.com/user-attachments/assets/fe139aff-25cf-4e10-b9f0-33fb2a114181).
+
 
 # Connection to more than 3 hubs
 
@@ -497,6 +506,8 @@ Thanks for the original [PowerFunctions](https://github.com/jurriaan/Arduino-Pow
 Thanks to [@wmarkow](https://github.com/wmarkow) for his detailed input about hub emulation issues on Android devices and his proposals.
 
 Thanks to [@Rbel12b](https://github.com/Rbel12b) for some extra changes for NimBLE-Arduino 2.x compatibility.
+
+Thanks to [@Paradox-Evil-EXE](https://github.com/Paradox-Evil-EXE) for adding the ESP32EmulatedHubControlPlus example.
 
 
 # Remarks
