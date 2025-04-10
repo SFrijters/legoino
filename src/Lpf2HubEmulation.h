@@ -54,6 +54,22 @@ private:
   int numberOfConnectedDevices = 0;
 
 public:
+  BLEServer* getServer() {
+    return _pServer;
+  }
+
+  BLEService* getService() {
+    return _pService;
+  }
+
+  BLEAdvertising* getAdvertising() {
+    return _pAdvertising;
+  }
+
+  BLEUUID getCharacteristicUUID() {
+    return _charachteristicUuid;
+  }
+
   Lpf2HubEmulation();
   Lpf2HubEmulation(std::string hubName, HubType hubType);
   void start();
@@ -83,6 +99,10 @@ public:
   bool isPortInitialized = false;
   BLECharacteristic *pCharacteristic;
   WritePortCallback writePortCallback = nullptr;
+
+  BLECharacteristic* getCharacteristic() {
+    return pCharacteristic;
+  }
 
 };
 
