@@ -539,3 +539,7 @@ void restorePCharacteristic() {
 ```
 
 [link to example with full code, no GPIO, just prints the commands it gets to serial monitor](https://github.com/Paradox-Evil-EXE/legoino_1.2.0_experiments/blob/master/examples/ESP-32_Emulated_Hub%20(Control%20Plus)/ESP-32_Emulated_Hub%20(Control%20Plus).ino)
+well, it needs 1 GPIO device, which is a button connected to GND and pin 26 (D26)
+image:
+![image](https://github.com/user-attachments/assets/fe139aff-25cf-4e10-b9f0-33fb2a114181)
+
