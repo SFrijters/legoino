@@ -502,3 +502,111 @@ Up to now the library is only tested for a Powered Up Train controllers, Boost c
 # ToDo
 * Virtual Ports
 * HW Families
+
+# Changes
+I made it so that now, if you call .start() on your emulated lego hub, it does not break your pCharacteristic, so you can still control the hub without restarting the whole BLE device, in my case, the ESP32-WROOM-32
+
+example:
+```c++
+#include "Lpf2HubEmulation.h"
+#include "LegoinoCommon.h"
+
+Lpf2HubEmulation myEmulatedHub("MyHub", HubType::CONTROL_PLUS_HUB);
+
+const int buttonPin = 26; //replace with the GPIO pin number of where your button is, mine is connected to: D26, and GND, ignore GND here
+int buttonState = HIGH;
+int lastButtonState = HIGH;
+
+void writeValueCallback(byte portId, byte value) {
+  // your logic
+}
+
+void restorePCharacteristic() {
+  NimBLEServer* pServer = myEmulatedHub.getServer();
+  if (pServer == nullptr) {
+    // Serial.println("❌ BLE server not available."); //Uncomment if you want logs
+    return;
+  }
+
+  BLEService* pService = pServer->getServiceByUUID("00001623-1212-efde-1623-785feabcd123");
+  if (pService == nullptr) {
+    // Serial.println("❌ LPF2 service not found."); //Uncomment if you want logs
+    return;
+  }
+
+  BLECharacteristic* pChar = pService->getCharacteristic("00001624-1212-efde-1623-785feabcd123");
+  if (pChar == nullptr) {
+    pChar = pService->createCharacteristic(
+      myEmulatedHub.getCharacteristicUUID(),
+      NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::NOTIFY
+    );
+    // Serial.println("⚠️ Characteristic recreated."); //Uncomment if you want logs
+  }
+
+  myEmulatedHub.pCharacteristic = pChar;
+  // Serial.println("✅ pCharacteristic set."); //Uncomment if you want logs
+}
+
+void restartHub() {
+  Serial.println("Restarting hub...");
+  myEmulatedHub.start();  // Required per your note
+  Serial.print("pCharacteristic after start: ");
+  Serial.println(myEmulatedHub.pCharacteristic == nullptr ? "nullptr" : "not null");
+  restorePCharacteristic();  // Ensure pCharacteristic is valid
+  myEmulatedHub.setWritePortCallback(&writeValueCallback);  // Reattach callback
+}
+
+void setup() {
+  Serial.begin(115200); // best
+  //BUTTON
+  pinMode(buttonPin, INPUT_PULLUP);
+  //HUB
+  delay(1000);
+  // Serial.println("1. Starting ESP32..."); // Reattach callback
+  // Serial.println("2. Setting callback..."); // Reattach callback
+  myEmulatedHub.setWritePortCallback(&writeValueCallback);
+  // Serial.println("3. Starting BLE..."); // Reattach callback
+  myEmulatedHub.start();
+  //uncomment if you want to attach virtual motors
+  /*
+  Serial.println("4. Attaching motors...");
+  myEmulatedHub.attachDevice(portA, DeviceType::MEDIUM_LINEAR_MOTOR);
+  myEmulatedHub.attachDevice(portB, DeviceType::MEDIUM_LINEAR_MOTOR);
+  myEmulatedHub.attachDevice(portC, DeviceType::MEDIUM_LINEAR_MOTOR);
+  myEmulatedHub.attachDevice(portD, DeviceType::MEDIUM_LINEAR_MOTOR);
+  Serial.println("5. Setup complete!");
+  */
+}
+
+void loop() {
+  buttonState = digitalRead(buttonPin);
+  if (buttonState != lastButtonState && buttonState == LOW) {
+    restartHub();
+    delay(100);
+  }
+  lastButtonState = buttonState;
+
+  if (myEmulatedHub.pCharacteristic != nullptr) {
+    std::string value = myEmulatedHub.pCharacteristic->getValue();
+    if (!value.empty() && value.length() >= 8) {
+      /* RAW VALUE PRINTER, USE ONLY FOR DEBUGGING
+      Serial.print("Raw data: ");
+      for (size_t i = 0; i < value.length(); i++) {
+        Serial.print((byte)value[i], HEX);
+        Serial.print(" ");
+      }
+      Serial.println();
+      */
+      byte portId = (byte)value[3];
+      byte power = (byte)value[7];
+      if ((byte)value[2] == 0x81) {
+        //Serial.println("Calling writeValueCallback...");
+        writeValueCallback(portId, power);
+      } else {
+        // DO NOTHING
+      }
+    }
+  }
+  delay(50);
+}
+```
