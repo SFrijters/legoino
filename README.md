@@ -610,3 +610,5 @@ void loop() {
   delay(50);
 }
 ```
+
+(link to example with full code, no GPIO, just prints the commands it gets to serial monitor)[]
