@@ -44,16 +44,23 @@
       arduinoCliShell =
         pkgs:
         let
-          # https://github.com/SFrijters/legoino -> https://github.com/corneliusmunz/legoino
-          Legoino = pkgs.fetchFromGitHub {
-            name = "legoino-sfrijters";
-            owner = "SFrijters";
-            repo = "legoino";
-            tag = "1.2.1";
-            hash = "sha256-+EMk5Lga+gpmXiNKzV1UH9MdloBqS0jWNzsO5HQlDIg=";
-            postFetch = ''
+          Legoino = pkgs.stdenv.mkDerivation {
+            name = "Legoino";
+            src = lib.fileset.toSource {
+              root = ../.;
+              fileset = lib.fileset.unions [
+                ./../LICENSE
+                ./../platformio.ini
+                ./../keywords.txt
+                ./../library.properties
+                ./../README.md
+                ./../src
+              ];
+            };
+
+            postInstall = ''
               mkdir -p $out/libraries/Legoino/
-              mv $out/* $out/libraries/Legoino/ || true
+              mv * $out/libraries/Legoino/
             '';
           };
 
