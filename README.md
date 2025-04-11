@@ -1,6 +1,7 @@
 [![BuildExampleSketches](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml/badge.svg)](https://github.com/SFrijters/legoino/actions/workflows/buildExampleSketches.yml)
 [![Build via Nix](https://github.com/SFrijters/legoino/actions/workflows/nix-flake-check.yml/badge.svg)](https://github.com/SFrijters/legoino/actions/workflows/nix-flake-check.yml)
 
+
 # Legoino
 
 *Disclaimer*: LEGO® is a trademark of the LEGO Group of companies which does not sponsor, authorize or endorse this project.
@@ -8,6 +9,7 @@
 **Legoino** is an Arduino Library for controlling all kinds of *LEGO* Powered UP devices. From the two port hub, Move Hub (e.g. Boost), DUPLO train hub, Technic Hub to several devices like distance and color sensor, tilt sensor, train motor, remote control, speedometer, etc. you can control almost everything with that library and your Arduino sketch.
 
 It is also possible to use the "old" Power Function IR Modules and control them via an IR LED connected to a PIN of your ESP32 device. With the Hub emulation function you can even control an "old" Power Function Light or Motor with the Powered Up app.
+
 
 ## About this fork
 
@@ -116,7 +118,7 @@ There are different types of motors in the *LEGO* ecosystem. The Basic Motor (e.
 ```c++
   void stopBasicMotor(byte port);
   void setBasicMotorSpeed(byte port, int speed);
-  ````
+```
 
 ```c++
   void setAccelerationProfile(byte port, int16_t time);
@@ -144,7 +146,7 @@ For some use cases it is required to get the hub address (check a specific hub),
   std::string getHubName();
   void setHubName(char name[]);
   void shutDownHub();
-  ```
+```
 
 ## LED Commands
 
@@ -172,7 +174,7 @@ To read in changes of devices which are attached to a port (built-in or external
 
 ```c++
 typedef void (*PortValueChangeCallback)(void *hub, byte portNumber, DeviceType deviceType, uint8_t *pData);
-````
+```
 
 Example:
 
@@ -367,7 +369,7 @@ To use the PowerFunction Infrared library you have to connect a IR-LED to your c
 #include "PowerFunctions.h"
 // create a power functions instance (IR LED on Pin 12, IR Channel 0)
 PowerFunctions pf(12, 0);
-````
+```
 
 Then you can control the output ports (Red, Blue) with the following possible commands. The ports could be defined with the `PowerFunctionsPort` enum. For the PWM values the `PowerFunctionsPwm` enum is used.
 
@@ -462,6 +464,8 @@ It is possible to connect to up to 9 hubs in parallel with a common ESP32 board.
 
 Then close the Arduino environment and open it again to force the rebuild of the library. Open your sketch build and upload it and be happy with multiple connections.
 
+Note: the Nix-based examples use a patched version of NimBLE-Arduino to accomplish this automatically.
+
 
 # Debug Messages
 
@@ -492,9 +496,12 @@ Thanks for the original [PowerFunctions](https://github.com/jurriaan/Arduino-Pow
 
 Thanks to [@wmarkow](https://github.com/wmarkow) for his detailed input about hub emulation issues on Android devices and his proposals.
 
+Thanks to [@Rbel12b](https://github.com/Rbel12b) for some extra changes for NimBLE-Arduino 2.x compatibility.
+
+
 # Remarks
 
-Prerequisite of that library is the NimBLE-Arduino library (https://github.com/h2zero/NimBLE-Arduino) with at least version 1.0.1. Otherwise the notifications of changed characteristic values will not work. So just install the version 1.0.1 of that library via the Arduino Library manager or the platform.io library manager (https://www.arduinolibraries.info/libraries/nim-ble-arduino) as a prerequisite.
+Prerequisite of that library is the NimBLE-Arduino library (https://github.com/h2zero/NimBLE-Arduino) with at least version 2.1.0. Otherwise the notifications of changed characteristic values will not work. So just install the version 2.x of that library via the Arduino Library manager or the platform.io library manager (https://www.arduinolibraries.info/libraries/nim-ble-arduino) as a prerequisite.
 
 Up to now the library is only tested for a Powered Up Train controllers, Boost controllers, Control+ Hubs, PoweredUp Remote, Duplo Train Hub and Mario Hub. You can connect to your Hub, set the LED color, set the Hub name, control the motors (speed, port, movements) and shut down the Hub via a Arduino command. You also are able to read in hub device infos (RSSI, battery level, tilt) and sensor values (color, distance, rotation angle).
 
