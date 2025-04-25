@@ -59,7 +59,7 @@ jobs:
       run: |
         while IFS= read -r -d '' example; do
           if [ "${example}" != ./examples/package-index ]; then
-            nix develop ./examples --command make VERBOSE= _ARDUINO_BUILD_PATH=/tmp/arduino compile _ARDUINO_OUTPUT_DIR=/tmp/arduino -C "${example}"
+            nix develop ./examples --command make VERBOSE= _ARDUINO_ROOT_DIR=/tmp/arduino -C "${example}"
           fi
         done < <(find ./examples -maxdepth 1 -mindepth 1 -type d -print0 | sort -z)
 

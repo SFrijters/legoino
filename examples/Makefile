@@ -15,8 +15,8 @@ COMPILER_CPP_EXTRA_FLAGS=-MMD -c
 
 _ARDUINO_ROOT_DIR=/tmp/arduino/
 _ARDUINO_PROJECT_DIR=$(_ARDUINO_ROOT_DIR)/$(SKETCH_NAME)
-_ARDUINO_BUILD_PATH=$(_ARDUINO_PROJECT_DIR)/build/$(SKETCH_NAME)
-_ARDUINO_OUTPUT_DIR=$(ROOT_DIR)/output
+_ARDUINO_BUILD_DIR=$(_ARDUINO_PROJECT_DIR)/build/$(SKETCH_NAME)
+_ARDUINO_OUTPUT_DIR=$(_ARDUINO_PROJECT_DIR)/bin/$(SKETCH_NAME)
 
 .PHONY: all compile upload monitor clean
 
@@ -26,7 +26,7 @@ compile:
 	arduino-cli compile "$(VERBOSE)" \
 	--fqbn "$(FQBN)" \
 	--build-property "compiler.cpp.extra_flags=$(COMPILER_CPP_EXTRA_FLAGS)" \
-	--build-path "$(_ARDUINO_BUILD_PATH)" \
+	--build-path "$(_ARDUINO_BUILD_DIR)" \
 	--output-dir "$(_ARDUINO_OUTPUT_DIR)"
 
 upload:
@@ -45,4 +45,4 @@ monitor:
 
 clean:
 	rm -rf "$(_ARDUINO_OUTPUT_DIR)"
-	rm -rf "$(_ARDUINO_BUILD_PATH)"
+	rm -rf "$(_ARDUINO_BUILD_DIR)"
