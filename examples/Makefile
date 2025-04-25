@@ -11,7 +11,7 @@ VERBOSE=
 ROOT_DIR:=$(shell pwd)
 SKETCH_NAME:=$(shell basename $(ROOT_DIR))
 
-COMPILER_CPP_EXTRA_FLAGS=-MMD -c
+COMPILER_CPP_EXTRA_FLAGS:=$(shell test -e $(ROOT_DIR)/compiler.cpp.extra_flags && cat $(ROOT_DIR)/compiler.cpp.extra_flags)
 
 _ARDUINO_ROOT_DIR=/tmp/arduino/
 _ARDUINO_PROJECT_DIR=$(_ARDUINO_ROOT_DIR)/$(SKETCH_NAME)
