@@ -284,7 +284,7 @@ byte Lpf2HubEmulation::getDeviceTypeForPort(byte portNumber)
   log_d("Number of connected devices: %d", numberOfConnectedDevices);
   for (int idx = 0; idx < numberOfConnectedDevices; idx++)
   {
-    log_v("device %d, port number: %x, device type: %x, callback address: %x", idx, connectedDevices[idx].PortNumber, connectedDevices[idx].DeviceType, connectedDevices[idx].Callback);
+    log_v("device %d, port number: %x, device type: %x", idx, connectedDevices[idx].PortNumber, connectedDevices[idx].DeviceType);
     if (connectedDevices[idx].PortNumber == portNumber)
     {
       log_d("device on port %x has type %x", portNumber, connectedDevices[idx].DeviceType);
@@ -454,8 +454,8 @@ void Lpf2HubEmulation::start()
   const uint8_t slaveConnectionIntervalRange[6] = {0x05, 0x12, 0x10, 0x00, 0x20, 0x00};
   scanResponseData.addData(slaveConnectionIntervalRange, sizeof(slaveConnectionIntervalRange));
 
-  log_d("advertisment data payload(%d): %s", advertisementData.getPayload().length(), advertisementData.getPayload().c_str());
-  log_d("scan response data payload(%d): %s", scanResponseData.getPayload().length(), scanResponseData.getPayload().c_str());
+  log_d("advertisment data payload(%d): %s", advertisementData.getPayload().size(), advertisementData.toString());
+  log_d("scan response data payload(%d): %s", scanResponseData.getPayload().size(), scanResponseData.toString());
 
   _pAdvertising->setAdvertisementData(advertisementData);
   _pAdvertising->setScanResponseData(scanResponseData);
