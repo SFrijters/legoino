@@ -4,7 +4,10 @@ SHELL=/usr/bin/env bash
 SERIAL=/dev/ttyUSB0
 # This should be in sync with whatever you set in the sketch via `Serial.begin(xxx);` (if you set it at all).
 BAUDRATE=115200
-FQBN=esp32:esp32:XIAO_ESP32C3
+# Set debug level to test log_d macros.
+# DebugLevel taken from the output of arduino-cli board details --fqbn <base fqbn>
+# See https://forum.arduino.cc/t/example-of-core-log-level-using-compile-sketch-github-action/1036161
+FQBN=esp32:esp32:XIAO_ESP32C3:DebugLevel=verbose
 
 VERBOSE=
 
