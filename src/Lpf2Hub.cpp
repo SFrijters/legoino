@@ -19,7 +19,7 @@ void scanEndedCallback(NimBLEScanResults results)
     log_d("Number of devices: %d", results.getCount());
     for (int i = 0; i < results.getCount(); i++)
     {
-        log_d("device[%d]: %s", i, results.getDevice(i).toString().c_str());
+        log_d("device[%d]: %s", i, results.getDevice(i)->toString().c_str());
     }
 }
 
@@ -70,7 +70,7 @@ public:
         log_d("Scan Ended reason: %d\nNumber of devices: %d", reason, results.getCount());
         for (int i = 0; i < results.getCount(); i++)
         {
-            log_d("device[%d]: %s", i, results.getDevice(i).toString().c_str());
+            log_d("device[%d]: %s", i, results.getDevice(i)->toString().c_str());
         }
     }
 
