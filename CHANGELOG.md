@@ -1,8 +1,13 @@
 # Changelog
 
+## 1.2.3
+
+* Fix compilation errors at high values of `CORE_DEBUG_LEVEL`. (@carlalldis)
+* Tweak Nix support
+
 ## 1.2.2
 
-Add [Nix](https://nixos.org) support to the examples and add it to CI.
+* Add [Nix](https://nixos.org) support to the examples and add it to CI.
 
 ## 1.2.1
 
