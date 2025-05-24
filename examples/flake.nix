@@ -115,7 +115,7 @@
 
               name = "legoino-examples-esp32c3-arduino-cli";
             in
-            pkgs.mkShell {
+            pkgs.mkShellNoCC {
               inherit name;
 
               packages = with pkgs; [
