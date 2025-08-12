@@ -509,3 +509,44 @@ Up to now the library is only tested for a Powered Up Train controllers, Boost c
 # ToDo
 * Virtual Ports
 * HW Families
+
+# Changes
+I made it so that now, if you call .start() on your emulated lego hub, it does not break your pCharacteristic, so you can still control the hub without restarting the whole BLE device, in my case, the ESP32-WROOM-32
+
+example:
+```c++
+void restorePCharacteristic() {
+  NimBLEServer* pServer = myEmulatedHub.getServer(); // NEW FUNCTION -> GET BLE (P)SERVER
+  if (pServer == nullptr) {
+    Serial.println("❌ BLE server not available.");
+    return;
+  }
+
+  BLEService* pService = pServer->getServiceByUUID("00001623-1212-efde-1623-785feabcd123");  // NEW FUNCTION -> GET BLE (P)SERVICE BY UUID
+  if (pService == nullptr) {
+    Serial.println("❌ LPF2 service not found.");
+    return;
+  }
+
+  BLECharacteristic* pChar = pService->getCharacteristic("00001624-1212-efde-1623-785feabcd123");  // NEW FUNCTION -> GET BLE (P)CHARACTERISTIC
+  if (pChar == nullptr) {
+    pChar = pService->createCharacteristic(
+      myEmulatedHub.getCharacteristicUUID(),   // NEW FUNCTION -> GET BLE (P)CHARACTERISTIC UUID
+      NIMBLE_PROPERTY::READ | NIMBLE_PROPERTY::WRITE | NIMBLE_PROPERTY::NOTIFY
+    );
+    Serial.println("⚠️ Characteristic recreated.");
+  }
+  /* EXAMPLE FOR GET (P)ADVERTISING
+  pAdvert = myEmulatedHub.getAdvertising();
+  */
+
+  myEmulatedHub.pCharacteristic = pChar;
+  Serial.println("✅ pCharacteristic set.");
+}
+```
+
+[link to example with full code, no GPIO, just prints the commands it gets to serial monitor](https://github.com/Paradox-Evil-EXE/legoino_1.2.0_experiments/blob/master/examples/ESP-32_Emulated_Hub%20(Control%20Plus)/ESP-32_Emulated_Hub%20(Control%20Plus).ino)
+well, it needs 1 GPIO device, which is a button connected to GND and pin 26 (D26)
+image:
+![image](https://github.com/user-attachments/assets/fe139aff-25cf-4e10-b9f0-33fb2a114181)
+
