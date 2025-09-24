@@ -58,9 +58,7 @@ jobs:
     - name: Compile example codes
       run: |
         while IFS= read -r -d '' example; do
-          if [ "${example}" != ./examples/package-index ]; then
-            nix develop ./examples --command make VERBOSE= _ARDUINO_ROOT_DIR=/tmp/arduino compile -C "${example}"
-          fi
+          nix develop ./examples --command make VERBOSE= _ARDUINO_ROOT_DIR=/tmp/arduino compile -C "${example}"
         done < <(find ./examples -maxdepth 1 -mindepth 1 -type d -print0 | sort -z)
 
     - name: Formatter check

@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs";
     arduino-nix.url = "github:bouk/arduino-nix";
+    arduino-indexes = {
+      url = "github:bouk/arduino-indexes";
+      flake = false;
+    };
   };
 
   outputs =
@@ -11,6 +15,7 @@
       self,
       nixpkgs,
       arduino-nix,
+      arduino-indexes,
     }:
     let
       inherit (nixpkgs) lib;
@@ -49,11 +54,11 @@
           overlays = [
             arduino-nix.overlay
             # https://downloads.arduino.cc/packages/package_index.json
-            (arduino-nix.mkArduinoPackageOverlay ./package-index/package_index.json)
+            (arduino-nix.mkArduinoPackageOverlay "${arduino-indexes}/index/package_index.json")
             # https://raw.githubusercontent.com/espressif/arduino-esp32/gh-pages/package_esp32_index.json
-            (arduino-nix.mkArduinoPackageOverlay ./package-index/package_esp32_index.json)
+            (arduino-nix.mkArduinoPackageOverlay "${arduino-indexes}/index/package_esp32_index.json")
             # https://downloads.arduino.cc/libraries/library_index.json
-            (arduino-nix.mkArduinoLibraryOverlay ./package-index/library_index.json)
+            (arduino-nix.mkArduinoLibraryOverlay "${arduino-indexes}/index/library_index.json")
           ];
 
           arduinoCliShell =
@@ -109,7 +114,7 @@
                 ];
 
                 packages = [
-                  pkgs.arduinoPackages.platforms.esp32.esp32."3.1.3"
+                  pkgs.arduinoPackages.platforms.esp32.esp32."3.3.0"
                 ];
               };
 
