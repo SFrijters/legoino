@@ -34,12 +34,14 @@ enum struct HubType
   POWERED_UP_REMOTE = 4,
   DUPLO_TRAIN_HUB = 5,
   CONTROL_PLUS_HUB = 6,
-  MARIO_HUB = 7
+  MARIO_HUB = 7,
+  DUPLO_TRAIN_HUB_2 = 8  // Hub No. 16 (0x21)
 };
 
 enum BLEManufacturerData
 {
   DUPLO_TRAIN_HUB_ID = 32,   //0x20
+  DUPLO_TRAIN_HUB_2_ID = 33, //0x21 - Hub No. 16
   BOOST_MOVE_HUB_ID = 64,    //0x40
   POWERED_UP_HUB_ID = 65,    //0x41
   POWERED_UP_REMOTE_ID = 66, //0x42
@@ -106,7 +108,9 @@ enum struct DeviceType
   MARIO_HUB_BARCODE_SENSOR = 73,          // https://github.com/bricklife/LEGO-Mario-Reveng
   MARIO_HUB_PANT_SENSOR = 74,             // https://github.com/bricklife/LEGO-Mario-Reveng
   TECHNIC_MEDIUM_ANGULAR_MOTOR_GREY = 75, // Mindstorms
-  TECHNIC_LARGE_ANGULAR_MOTOR_GREY = 76   // Mindstorms
+  TECHNIC_LARGE_ANGULAR_MOTOR_GREY = 76,  // Mindstorms
+  DUPLO_TRAIN_HUB16_LIGHT_SPEAKER = 90,   // Hub No. 16 port 0x34 - confirmed: controls light colour and plays horn sound
+  DUPLO_TRAIN_HUB2_DEVICE_91 = 91         // Hub No. 16 port 0x33 - device type unconfirmed
 };
 
 enum struct MessageType
@@ -319,6 +323,54 @@ enum struct DuploTrainHubPort
   COLOR = 0x12,
   SPEEDOMETER = 0x13,
   VOLTAGE = 0x14
+};
+
+// Hub No. 16 (BLE type 0x21) - LEGO label "DUPLO HUB NO. 16"
+// Ports differ from classic DuploTrainHub
+enum struct DuploTrainHub2Port
+{
+  MOTOR = 0x32,
+  UNKNOWN_91 = 0x33,    // device 91 - function unconfirmed
+  LIGHT_SPEAKER = 0x34, // device 90 - controls light colour and hub sounds (horn etc.)
+  VOLTAGE = 0x35,
+  SPEEDOMETER = 0x36
+};
+
+// Colours for Hub No. 16 LIGHT_SPEAKER port (port 0x34)
+// Indices differ from the standard Color enum — use this enum for setHub16LightColor()
+// Matches the official LEGO Powered Up app cycle order
+enum struct DuploTrainHub16Color
+{
+  OFF    = 0,
+  WHITE  = 1,
+  RED    = 11,  // 0x0b
+  YELLOW = 8,
+  GREEN  = 7,
+  BLUE   = 9,
+  PURPLE = 10
+};
+
+// Sub-command summary for Hub No. 16 LIGHT_SPEAKER port (port 0x34), mode 0x01
+// Command format: {0x81, port, 0x11, 0x51, 0x01, sub_cmd, 0x01, param, 0x00}
+//   SET_COLOR (0x04): param = DuploTrainHub16Color
+//   PLAY_SCENE (0x06): param = DuploTrainHub16Scene
+//   HORN (0x07): param = 0x00
+
+enum struct DuploTrainHub16Sound
+{
+  HORN = 7
+};
+
+// Scene indices confirmed via Android HCI snoop of official LEGO Powered Up app
+// (purple action tile options). Index 0x02 is believed to be a custom recorded
+// sound — not implemented here.
+enum struct DuploTrainHub16Scene
+{
+  SCENE_DEFAULT = 0,
+  ISLAND        = 1,
+  NIGHT         = 3,
+  BIRTHDAY      = 4,
+  RAIN          = 5
 };
 
 enum struct MoveHubPort

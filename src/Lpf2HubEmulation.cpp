@@ -435,6 +435,12 @@ void Lpf2HubEmulation::start()
     const char controlPlusHub[8] = {0x97, 0x03, 0x00, 0x80, 0x06, 0x00, 0x41, 0x00};
     manufacturerData = std::string(controlPlusHub, sizeof(controlPlusHub));
   }
+  else if (_hubType == HubType::DUPLO_TRAIN_HUB_2)
+  {
+    log_d("Duplo Train Hub 2 (Hub No. 16)");
+    const char duploTrainHub2[8] = {(char)0x97, 0x03, 0x00, 0x21, 0x02, (char)0xff, 0x01, 0x00};
+    manufacturerData = std::string(duploTrainHub2, sizeof(duploTrainHub2));
+  }
   NimBLEAdvertisementData advertisementData = NimBLEAdvertisementData();
   // flags must be present to make PoweredUp working on devices with Android >=6
   // (however it seems to be not needed for devices with Android <6)

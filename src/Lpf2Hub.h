@@ -92,6 +92,10 @@ public:
   void playTone(byte number);
   void setMarioVolume(byte volume);
 
+  void setHub16LightColor(byte port, DuploTrainHub16Color color);
+  void playHub16Sound(byte port, byte sound);
+  void setHub16TileScene(byte port, byte scene);
+
   // parse methods to read in the message content of the charachteristic value
   void parseDeviceInfo(uint8_t *pData);
   void parsePortMessage(uint8_t *pData);

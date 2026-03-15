@@ -98,6 +98,9 @@ public:
                     case DUPLO_TRAIN_HUB_ID:
                         _lpf2Hub->_hubType = HubType::DUPLO_TRAIN_HUB;
                         break;
+                    case DUPLO_TRAIN_HUB_2_ID:
+                        _lpf2Hub->_hubType = HubType::DUPLO_TRAIN_HUB_2;
+                        break;
                     case BOOST_MOVE_HUB_ID:
                         _lpf2Hub->_hubType = HubType::BOOST_MOVE_HUB;
                         break;
@@ -660,6 +663,8 @@ byte Lpf2Hub::getModeForDeviceType(byte deviceType)
         return (byte)HubPropertyOperation::ENABLE_UPDATES_DOWNSTREAM;
     case (byte)DeviceType::MARIO_HUB_GESTURE_SENSOR:
         return 0x01;
+    case (byte)DeviceType::DUPLO_TRAIN_HUB16_LIGHT_SPEAKER:
+        return 0x01;
     default:
         return 0x00;
     }
@@ -794,6 +799,7 @@ void Lpf2Hub::notifyCallback(
         break;
     }
     case (byte)MessageType::PORT_VALUE_SINGLE:
+    case (byte)MessageType::PORT_VALUE_COMBINEDMODE:
     {
         parseSensorMessage(pData);
         break;
@@ -1393,6 +1399,44 @@ void Lpf2Hub::playTone(byte number)
     WriteValue(setToneMode, 8);
     byte playTone[6] = {0x81, 0x01, 0x11, 0x51, 0x02, number};
     WriteValue(playTone, 6);
+}
+
+/**
+ * @brief Set the light colour on a Duplo Hub No. 16 (Hub No. 16, BLE type 0x21)
+ * @param [in] port port number - use DuploTrainHub2Port::LIGHT_SPEAKER (0x34)
+ * @param [in] color one of the Color enum values
+ * Command format confirmed via Wireshark capture of official LEGO Powered Up app.
+ */
+void Lpf2Hub::setHub16LightColor(byte port, DuploTrainHub16Color color)
+{
+    byte command[9] = {0x81, port, 0x11, 0x51, 0x01, 0x04, 0x01, (byte)color, 0x00};
+    WriteValue(command, 9);
+}
+
+/**
+ * @brief Play a sound on a Duplo Hub No. 16 (Hub No. 16, BLE type 0x21)
+ * @param [in] port port number - use DuploTrainHub2Port::LIGHT_SPEAKER (0x34)
+ * @param [in] sound sound index - use DuploTrainHub16Sound enum (e.g. HORN = 1)
+ * Command format confirmed via Wireshark capture of official LEGO Powered Up app.
+ */
+void Lpf2Hub::playHub16Sound(byte port, byte sound)
+{
+    byte command[9] = {0x81, port, 0x11, 0x51, 0x01, sound, 0x01, 0x00, 0x00};
+    WriteValue(command, 9);
+}
+
+/**
+ * @brief Set the scene triggered when the train crosses the purple action tile
+ * on a Duplo Hub No. 16 (Hub No. 16, BLE type 0x21). This is a configuration
+ * command — it does not trigger the scene immediately.
+ * @param [in] port port number - use DuploTrainHub2Port::LIGHT_SPEAKER (0x34)
+ * @param [in] scene scene index - use DuploTrainHub16Scene enum
+ * Command format confirmed via Android HCI snoop of official LEGO Powered Up app.
+ */
+void Lpf2Hub::setHub16TileScene(byte port, byte scene)
+{
+    byte command[9] = {0x81, port, 0x11, 0x51, 0x01, 0x06, 0x01, scene, 0x00};
+    WriteValue(command, 9);
 }
 
 /**
